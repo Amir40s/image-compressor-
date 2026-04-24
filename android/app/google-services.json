@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "523735844482",
+    "project_id": "image-comp-66d99",
+    "storage_bucket": "image-comp-66d99.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:523735844482:android:5dc79844feae789841169b",
+        "android_client_info": {
+          "package_name": "com.solinovation.image_compressor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCELRtQizpaTa5fU2curVWQmSqlMb0H1kY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
