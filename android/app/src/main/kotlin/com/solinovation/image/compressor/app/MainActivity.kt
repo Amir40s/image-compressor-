@@ -1,4 +1,4 @@
-package com.solinovation.image_compressor
+package com.solinovation.image.compressor.app
 
 import io.flutter.embedding.android.FlutterActivity
 

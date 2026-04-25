@@ -146,9 +146,9 @@ class ImageMainView extends GetView<ImageMainC> {
   Widget _uploadCard() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
+      padding:   EdgeInsets.symmetric(horizontal: 4.w, vertical: 18),
       decoration: BoxDecoration(
-        color: const Color(0xffD9E5F6),
+        color: const Color(0xffB9D0E7),
         borderRadius: BorderRadius.circular(28),
         boxShadow: [
           BoxShadow(
@@ -171,7 +171,7 @@ class ImageMainView extends GetView<ImageMainC> {
                       height: 42,
                       width: 42,
                       decoration: BoxDecoration(
-                        color: const Color(0xffBFD0EA),
+                        color: const Color(0xffA3C2E1),
                         borderRadius: BorderRadius.circular(50),
                       ),
                       child: Center(
@@ -191,12 +191,11 @@ class ImageMainView extends GetView<ImageMainC> {
                       children: [
                         AppText(
                           "Image Compressor",
-                          fontSize: 17,
+                          fontSize: 15,
                           fontWeight: FontWeight.w700,
                         ),
 
-                        /// Subtitle
-                        AppText(
+                         AppText(
                           "Select any Image from gallery",
                           fontSize: 12,
                           color: Colors.black54,
@@ -208,15 +207,14 @@ class ImageMainView extends GetView<ImageMainC> {
 
 
 
-                const SizedBox(height: 22),
+                  SizedBox(height: 2.h),
 
-                /// Upload Button
-                GestureDetector(
+                 GestureDetector(
                   onTap: controller.uploadImage,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 14,
+                    padding:  EdgeInsets.symmetric(
+                      horizontal: 4.w,
+                      vertical: 1.h,
                     ),
                     decoration: BoxDecoration(
                       color: const Color(0xff4C79C8),
@@ -227,8 +225,8 @@ class ImageMainView extends GetView<ImageMainC> {
                       children: [
                         SvgPicture.asset(
                           AppAssets.uploadIcon,
-                          height: 20,
-                          width: 20,
+                          height: 18,
+                          width: 18,
                           color: Colors.white,
                         ),
 
@@ -237,7 +235,7 @@ class ImageMainView extends GetView<ImageMainC> {
                         const AppText(
                           "Upload Image",
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
                       ],
@@ -245,13 +243,13 @@ class ImageMainView extends GetView<ImageMainC> {
                   ),
                 ),
 
-                const SizedBox(height: 8),
+                  SizedBox(height: 1.h),
 
                  Padding(
                   padding: const EdgeInsets.only(left: 10.0),
                   child: AppText(
                     "Supported formats: JPG, PNG,WebP",
-                    fontSize: 10,
+                    fontSize: 12,
                     color: Colors.black38,
                   ),
                 ),
@@ -259,21 +257,18 @@ class ImageMainView extends GetView<ImageMainC> {
             ),
           ),
 
-          const SizedBox(width: 12),
+            SizedBox(width: 1.w),
 
            Container(
-            height: 110,
+            height: 8.h,
             width: 20.w,
             decoration: BoxDecoration(
-              color: Colors.transparent,
+              color: const Color(0xffB9D0E7),
               borderRadius: BorderRadius.circular(26),
+              image: DecorationImage(image: AssetImage( AppAssets.gallery,
+                ))
             ),
-            child: Center(
-              child: Image.asset(
-                AppAssets.gallery,
-                fit: BoxFit.contain,
-              ),
-            ),
+
           ),
         ],
       ),
@@ -333,7 +328,7 @@ class ImageMainView extends GetView<ImageMainC> {
                 const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
                 color: Colors.black.withOpacity(.38),
                 child: Text(
-                  "$title . $size",
+                  "$title: $size",
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.white,

@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:523735844482:android:23d1ed8fb22c058741169b",
+        "android_client_info": {
+          "package_name": "com.solinovation.image.compressor.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCELRtQizpaTa5fU2curVWQmSqlMb0H1kY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:523735844482:android:5dc79844feae789841169b",
         "android_client_info": {
           "package_name": "com.solinovation.image_compressor"

@@ -17,14 +17,20 @@ class CompareView extends GetView<ImageMainC> {
       backgroundColor: const Color(0xffF7F8FC),
       body: SafeArea(
         child: Column(
+
           children: [
             CustomAppBar(title: "Compare", isBackBtn: true),
-            _toggleTabs(),
-            const SizedBox(height: 28),
+
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                child: Obx(() => _imageCard()),
+              child: Column(
+                children: [
+                  _toggleTabs(),
+                  const SizedBox(height: 28),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    child: Obx(() => _imageCard()),
+                  ),
+                ],
               ),
             ),
           ],

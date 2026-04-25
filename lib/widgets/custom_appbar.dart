@@ -8,12 +8,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
   final double height;
   final bool isBackBtn;
+  final Widget? trailing;
 
   const CustomAppBar({
     super.key,
     this.title,
     this.height = 120,
     this.isBackBtn = false,
+    this.trailing,
   });
 
   @override
@@ -23,7 +25,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: ListTile(
-        leading: IconButton(
+        leading: isBackBtn ? IconButton(
           icon: Container(
             padding: const EdgeInsets.all(4),
             decoration: const BoxDecoration(
@@ -37,21 +39,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           onPressed: () => Get.back(),
+        ) : const SizedBox(width: 48),
+        title: Center(
+          child: AppText(
+           title ?? '',
+            color: Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(right: 10.w),
-              child: AppText(
-               title!,
-                color: Colors.black,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
+        trailing: trailing ?? const SizedBox(width: 48),
       ),
     );
   }

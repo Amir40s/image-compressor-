@@ -30,6 +30,8 @@ class SubscriptionView extends GetView<SubscriptionController> {
               _featureHeader(),
               SizedBox(height: 1.h),
               _featureList(),
+              SizedBox(height: 2.h),
+
               const Text(
                 "Go Premium",
                 style: TextStyle(
@@ -41,7 +43,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
               SizedBox(height: 2.h),
               _plans(),
 
-              SizedBox(height: 10.h),
+              SizedBox(height: 2.h),
               Obx(
                     () => AppButtonWidget(
                   text: "Continue",
@@ -137,6 +139,7 @@ class SubscriptionView extends GetView<SubscriptionController> {
   }
 
   Future<void> openUrl(String url) async {
+    log("message");
     try {
       final uri = Uri.parse(url);
 
@@ -209,78 +212,74 @@ class SubscriptionView extends GetView<SubscriptionController> {
 
   Widget _featureHeader() {
     return const Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(child: SizedBox()),
         SizedBox(
-          width: 70,
-          child: Center(
-            child: Text(
-              "PREMIUM",
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: Color(0xff777777),
-              ),
-            ),
-          ),
+           child: Text(
+             "PREMIUM",
+             maxLines: 1,
+             style: TextStyle(
+               fontSize: 14,
+               fontWeight: FontWeight.w700,
+               color: Color(0xff777777),
+             ),
+           ),
         ),
         SizedBox(width: 8),
         SizedBox(
-          width: 52,
-          child: Center(
-            child: AppText(
-              "BASIC",
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: Color(0xff777777),
-            ),
-          ),
+           child: AppText(
+             "BASIC",
+             fontSize: 14,
+             fontWeight: FontWeight.w700,
+             color: Color(0xff777777),
+           ),
         ),
       ],
     );
   }
 
   Widget _featureList() {
-    return Expanded(
-      child: ListView.separated(
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: controller.features.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 18),
-        itemBuilder: (context, index) {
-          final item = controller.features[index];
-          return Row(
-            children: [
-              SvgPicture.asset(item.icon),
-              const SizedBox(width: 12),
-              Expanded(
-                child: AppText(
-                  item.title,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: controller.features.length,
+      separatorBuilder: (_, __) => const SizedBox(height: 18),
+      itemBuilder: (context, index) {
+        final item = controller.features[index];
+        return Row(
+          children: [
+            SvgPicture.asset(item.icon),
+            const SizedBox(width: 12),
+            Expanded(
+              child: AppText(
+                item.title,
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
               ),
-              SizedBox(
-                width: 70,
-                child: Center(
-                  child: item.ifPremium
-                      ? SvgPicture.asset(AppAssets.checkMark)
-                      : Icon(Icons.remove),
-                ),
+            ),
+            SizedBox(
+              width: 70,
+              child: Center(
+                child: item.ifPremium
+                    ? SvgPicture.asset(AppAssets.checkMark)
+                    : Icon(Icons.remove),
               ),
-              const SizedBox(width: 8),
-              SizedBox(
-                width: 52,
-                child: Center(
-                  child: item.isBasic
-                      ? SvgPicture.asset(AppAssets.checkMark)
-                      : Icon(Icons.remove),
-                ),
+            ),
+            const SizedBox(width: 8),
+            SizedBox(
+              width: 52,
+              child: Center(
+                child: item.isBasic
+                    ? SvgPicture.asset(AppAssets.checkMark)
+                    : Icon(Icons.remove),
               ),
-            ],
-          );
-        },
-      ),
+            ),
+          ],
+        );
+      },
     );
   }
 

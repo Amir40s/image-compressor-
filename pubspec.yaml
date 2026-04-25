@@ -50,10 +50,18 @@ dependencies:
   open_filex: ^4.7.0
   in_app_purchase: ^3.2.3
   url_launcher: ^6.3.2
-
+  firebase_crashlytics: ^5.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+  change_app_package_name: ^1.1.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/app_logo.png"
+  remove_alpha_ios: true
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -75,6 +83,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/app_logo.png
     - assets/images/onboarding/
     - assets/images/main_image_view/
     - assets/images/compress_view/

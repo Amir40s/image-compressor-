@@ -1,8 +1,9 @@
 class AppAssets {
   ///onboarding screen
-  static String onBoarding1 = "assets/images/onboarding/img.png";
+  static String appLogo = "assets/images/app_logo.png";
+   static String onBoarding1 = "assets/images/onboarding/img.png";
   static String  onBoarding2 = "assets/images/onboarding/img_1.png";
-  static String onBoarding3 = "assets/images/onboarding/img_2.png";
+  static String onBoarding3 = "assets/images/onboarding/img_3.png";
 
   ///main image value
   static String menuIcon = "assets/images/main_image_view/manu_icon.svg";

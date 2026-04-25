@@ -17,84 +17,89 @@ class SettingView extends GetView<SettingController> {
       backgroundColor: const Color(0xffF7F8FC),
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                CustomAppBar(title: "Setting", isBackBtn: true,),
-                _premiumCard(),
-                const SizedBox(height: 18),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: AppText(
-                    "Security",
-                    type: AppTextType.heading2,
-                    color: const Color(0xff222222),
-                  ),
-                ),
-                const SizedBox(height: 14),
-                Obx(() {
-                  final onboardingC = Get.find<OnBoardingC>();
-                  final isPremium = onboardingC.userModel.value?.premium ?? false;
+          child: Column(
+            children: [
+              CustomAppBar(title: "Setting", isBackBtn: true,),
 
-                  if (!isPremium) return const SizedBox.shrink();
-
-                  return Column(
-                    children: [
-                      GestureDetector(
-                        onTap: controller.restorePurchases,
-                        child: Container(
-                          height: 86,
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(horizontal: 14),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(28),
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.all(12),
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color(0xffEAF1FF),
-                                ),
-                                child: SvgPicture.asset(AppAssets.restoreIcon),
-                              ),
-                              const SizedBox(width: 14),
-                              Expanded(
-                                child: AppText(
-                                  "Restore Subscription",
-                                  type: AppTextType.body,
-                                  color: const Color(0xff2B2B2B),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    _premiumCard(),
+                    const SizedBox(height: 18),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: AppText(
+                        "Security",
+                        type: AppTextType.heading2,
+                        color: const Color(0xff222222),
                       ),
-                      const SizedBox(height: 14),
-                    ],
-                  );
-                }),
+                    ),
+                    const SizedBox(height: 14),
+                    Obx(() {
+                      final onboardingC = Get.find<OnBoardingC>();
+                      final isPremium = onboardingC.userModel.value?.premium ?? false;
 
-                ListView.separated(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: controller.settingList.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 16),
-                  itemBuilder: (context, index) {
-                    final item = controller.settingList[index];
-                    return _settingTile(
-                      icon: item.icon,
-                      title: item.title,
-                      onTap: item.onPressed,
-                    );
-                  },
+                      if (!isPremium) return const SizedBox.shrink();
+
+                      return Column(
+                        children: [
+                          GestureDetector(
+                            onTap: controller.restorePurchases,
+                            child: Container(
+                              height: 86,
+                              width: double.infinity,
+                              padding: const EdgeInsets.symmetric(horizontal: 14),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(28),
+                              ),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(12),
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Color(0xffEAF1FF),
+                                    ),
+                                    child: SvgPicture.asset(AppAssets.restoreIcon),
+                                  ),
+                                  const SizedBox(width: 14),
+                                  Expanded(
+                                    child: AppText(
+                                      "Restore Subscription",
+                                      type: AppTextType.body,
+                                      color: const Color(0xff2B2B2B),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 14),
+                        ],
+                      );
+                    }),
+
+                    ListView.separated(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: controller.settingList.length,
+                      separatorBuilder: (_, __) => const SizedBox(height: 16),
+                      itemBuilder: (context, index) {
+                        final item = controller.settingList[index];
+                        return _settingTile(
+                          icon: item.icon,
+                          title: item.title,
+                          onTap: item.onPressed,
+                        );
+                      },
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -174,8 +179,7 @@ class SettingView extends GetView<SettingController> {
                               SizedBox(width: 6),
                               AppText(
                                 "Enjoy Ad-Free Experience",
-                                color: Colors.black54,
-                                fontWeight: FontWeight.w800,
+                                 fontWeight: FontWeight.w800,
                                 fontSize: 13,
                               ),
                             ],

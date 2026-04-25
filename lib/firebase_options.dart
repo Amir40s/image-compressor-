@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCELRtQizpaTa5fU2curVWQmSqlMb0H1kY',
-    appId: '1:523735844482:android:5dc79844feae789841169b',
+    appId: '1:523735844482:android:23d1ed8fb22c058741169b',
     messagingSenderId: '523735844482',
     projectId: 'image-comp-66d99',
     storageBucket: 'image-comp-66d99.firebasestorage.app',
@@ -59,10 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDmo1Wh3gEWan3KYTJvrLJOzAWkLuHY2ms',
-    appId: '1:523735844482:ios:3e73b5f45b15459b41169b',
+    appId: '1:523735844482:ios:f2352cd4115971ab41169b',
     messagingSenderId: '523735844482',
     projectId: 'image-comp-66d99',
     storageBucket: 'image-comp-66d99.firebasestorage.app',
-    iosBundleId: 'com.solinovation.imageCompressor',
+    iosBundleId: 'com.solinovation.image.compressor.app',
   );
+
 }

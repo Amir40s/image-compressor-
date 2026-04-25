@@ -26,8 +26,8 @@ class SubscriptionController extends GetxController {
   RxBool isPurchasing = false.obs;
   RxString errorMessage = ''.obs;
 
-  RxString monthlyPrice = "--".obs;
-  RxString yearlyPrice = "--".obs;
+  RxString monthlyPrice = "\$4.99".obs;
+  RxString yearlyPrice = "\$34.99".obs;
 
   final List<ProductDetails> _products = [];
 

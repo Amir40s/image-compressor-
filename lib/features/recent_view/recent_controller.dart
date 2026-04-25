@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_compressor/features/image_main_view/controller.dart';
 
 class RecentController extends GetxController {
   final RxList<Map<String, String>> todayList = <Map<String, String>>[].obs;
@@ -80,6 +81,17 @@ class RecentController extends GetxController {
     }
   }
 
+  Future<void> deleteAllImages() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('recent_images');
+    todayList.clear();
+    yesterdayList.clear();
+    if (Get.isRegistered<ImageMainC>()) {
+      Get.find<ImageMainC>().loadRecentImages();
+    }
+    Get.snackbar("Success", "All history cleared");
+  }
+
   void shareImage(String path) async {
     try {
       if (!File(path).existsSync()) {
@@ -107,6 +119,9 @@ class RecentController extends GetxController {
   void removeImage(String path) async {
     await deleteRecentImage(path);
     loadRecentImages(); // Refresh lists
+    if (Get.isRegistered<ImageMainC>()) {
+      Get.find<ImageMainC>().loadRecentImages();
+    }
     Get.snackbar("Success", "Image removed from history");
   }
 
