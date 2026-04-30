@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_compressor/core/routes_config/routess.dart';
 import 'package:image_compressor/features/onboarding_screen/controller.dart';
-import 'package:image_compressor/utils/app_assets.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_compressor/features/recent_view/recent_controller.dart';
