@@ -83,6 +83,7 @@ class ImageMainC extends GetxController {
       imageName = imagePath.split("/").last;
       selectedImageSize = formatBytes(selectImageBytes);
       selectImageSize = selectedImageSize;
+      compressedImageSize = "";
       Get.toNamed(Routes.CompressorView);
     } else {
       Get.snackbar("no image", "no image did not selected");
@@ -145,11 +146,19 @@ class ImageMainC extends GetxController {
 
     if (croppedFile != null) {
       selectedImage = File(croppedFile.path);
-      originalImage = selectedImage;
-      selectImageBytes = await selectedImage!.length();
-      selectImageSize = formatBytes(selectImageBytes);
+      imagePath = croppedFile.path;
       imageName = imagePath.split('/').last;
-      selectedImageSize = formatBytes(selectImageBytes);
+
+      if (compressedImageSize.isNotEmpty) {
+        final compressedBytes = await selectedImage!.length();
+        compressedImageSize = formatBytes(compressedBytes);
+      } else {
+        originalImage = selectedImage;
+        selectImageBytes = await selectedImage!.length();
+        selectImageSize = formatBytes(selectImageBytes);
+        selectedImageSize = formatBytes(selectImageBytes);
+      }
+
       update();
     }
   }

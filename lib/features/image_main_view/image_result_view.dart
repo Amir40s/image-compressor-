@@ -18,18 +18,25 @@ class ResultView extends GetView<ImageMainC> {
     return Scaffold(
       backgroundColor: const Color(0xffF7F8FC),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+        child: SingleChildScrollView(
           child: Column(
             children: [
               CustomAppBar(title: "Image Compressor", isBackBtn: true),
-              _topInfoCard(),
-              const SizedBox(height: 16),
-              _imagePreview(),
-              const SizedBox(height: 18),
-              _toolBox(),
-              const SizedBox(height: 22),
-              _bottomButtons(),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+                child: Column(
+                  children: [
+                    _topInfoCard(),
+                    const SizedBox(height: 16),
+                    _imagePreview(),
+                    const SizedBox(height: 18),
+                    _toolBox(),
+                    const SizedBox(height: 22),
+                    _bottomButtons(),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

@@ -18,58 +18,66 @@ class CompressorView extends GetView<ImageMainC> {
     return Scaffold(
       backgroundColor: const Color(0xffF7F8FC),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomAppBar(title: "Select Compressor",isBackBtn: true,),
-              const SizedBox(height: 28),
-              _selectedImageCard(),
-              const SizedBox(height: 34),
-               AppText(
-                "Select Compression Option",
-                     fontSize: 16, fontWeight: FontWeight.w800
-               ),
-              const SizedBox(height: 18),
+        child: Column(
 
-              ...List.generate(
-                controller.compressionList.length,
-                (index) => Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
-                  child: Obx(
-                    () {
-                      final onboardingC = Get.put(OnBoardingC());
-                      final isPremium = onboardingC.userModel.value?.premium ?? false;
-                      return _compressionTile(
-                        index: index,
-                        selected: controller.selectedCompression.value == index,
-                        title: controller.compressionList[index]["title"]!,
-                        desc: controller.compressionList[index]["desc"]!,
-                        isPremium: isPremium,
-                      );
-                    }
-                  ),
+          children: [
+            CustomAppBar(title: "Select Compressor",isBackBtn: true,),
+
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 28),
+                    _selectedImageCard(),
+                    const SizedBox(height: 34),
+                     AppText(
+                      "Select Compression Option",
+                           fontSize: 16, fontWeight: FontWeight.w800
+                     ),
+                    const SizedBox(height: 18),
+
+                    ...List.generate(
+                      controller.compressionList.length,
+                      (index) => Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Obx(
+                          () {
+                            final onboardingC = Get.put(OnBoardingC());
+                            final isPremium = onboardingC.userModel.value?.premium ?? false;
+                            return _compressionTile(
+                              index: index,
+                              selected: controller.selectedCompression.value == index,
+                              title: controller.compressionList[index]["title"]!,
+                              desc: controller.compressionList[index]["desc"]!,
+                              isPremium: isPremium,
+                            );
+                          }
+                        ),
+                      ),
+                    ),
+
+                    const Spacer(),
+                    Obx(
+                      () => AppButtonWidget(
+                        onPressed: controller.handleCompression ,
+                        text: "Compress",
+                        loader: controller.isLoading.value,
+                        suffixIcon: SvgPicture.asset(AppAssets.compressIcon),
+                        width: 80.w,
+                        height: 6.h,
+                        radius: 20,
+                        buttonColor: AppColors.buttonColor,
+                        textColor: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                  ],
                 ),
               ),
-
-              const Spacer(),
-              Obx(
-                () => AppButtonWidget(
-                  onPressed: controller.handleCompression ,
-                  text: "Compress",
-                  loader: controller.isLoading.value,
-                  suffixIcon: SvgPicture.asset(AppAssets.compressIcon),
-                  width: 80.w,
-                  height: 6.h,
-                  radius: 20,
-                  buttonColor: AppColors.buttonColor,
-                  textColor: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 14),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -80,49 +88,46 @@ class CompressorView extends GetView<ImageMainC> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(14),
-              child: Image.file(
-                controller.selectedImage!,
-                height: 30.w,
-                width: 30.w,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ],
+        ClipRRect(
+          borderRadius: BorderRadius.circular(14),
+          child: Image.file(
+            controller.selectedImage!,
+            height: 30.w,
+            width: 30.w,
+            fit: BoxFit.cover,
+          ),
         ),
         const SizedBox(width: 20),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Selected",
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
-            ),
-            SizedBox(height: 6),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Text(
-                controller.imageName,
-                style: TextStyle(fontSize: 12, color: Colors.grey),
+                "Selected",
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
               ),
-           ],
+              SizedBox(height: 2),
+              AppText(
+                  controller.imageName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  fontSize: 12, color: Colors.grey),
+              SizedBox(height: 6),
+
+              Text(
+                "File Size",
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+              ),
+              SizedBox(height: 2),
+              Text(
+                controller.selectedImageSize,
+                style: TextStyle(fontSize: 13, color: Colors.grey),
+              ),
+            ],
+          ),
         ),
-        const Spacer(),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "File Size",
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
-            ),
-            SizedBox(height: 6),
-            Text(
-              controller.selectedImageSize,
-              style: TextStyle(fontSize: 13, color: Colors.grey),
-            ),
-          ],
-        ),
+
+
       ],
     );
   }
