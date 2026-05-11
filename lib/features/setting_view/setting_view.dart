@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_compressor/core/routes_config/routess.dart';
 import 'package:image_compressor/features/setting_view/controllr.dart';
-import 'package:image_compressor/features/onboarding_screen/controller.dart';
+import 'package:image_compressor/features/image_main_view/controller.dart';
 import 'package:image_compressor/utils/app_assets.dart';
 import 'package:image_compressor/widgets/custom_appbar.dart';
 import '../../widgets/app_text.dart';
@@ -37,8 +37,8 @@ class SettingView extends GetView<SettingController> {
                     ),
                     const SizedBox(height: 14),
                     Obx(() {
-                      final onboardingC = Get.find<OnBoardingC>();
-                      final isPremium = onboardingC.userModel.value?.premium ?? false;
+                      final mainC = Get.find<ImageMainC>();
+                      final isPremium = mainC.userModel.value?.premium ?? false;
 
                       if (!isPremium) return const SizedBox.shrink();
 
@@ -109,8 +109,8 @@ class SettingView extends GetView<SettingController> {
 
   Widget _premiumCard() {
     return Obx(() {
-      final onboardingC = Get.put(OnBoardingC());
-      final isPremium = onboardingC.userModel.value?.premium ?? false;
+      final mainC = Get.find<ImageMainC>();
+      final isPremium = mainC.userModel.value?.premium ?? false;
 
       return GestureDetector(
         onTap: () {

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_compressor/core/routes_config/routess.dart';
 import 'package:image_compressor/utils/app_assets.dart';
 import 'package:image_compressor/widgets/image_preview_bottom_sheet.dart';
-import 'package:image_compressor/features/onboarding_screen/controller.dart';
+
 import 'package:sizer/sizer.dart';
 import '../../widgets/app_text.dart';
 import 'controller.dart';
@@ -100,8 +100,7 @@ class ImageMainView extends GetView<ImageMainC> {
          ),
         const Spacer(),
         Obx(() {
-          final onboardingC = Get.put(OnBoardingC());
-          final isPremium = onboardingC.userModel.value?.premium ?? false;
+          final isPremium = controller.userModel.value?.premium ?? false;
 
           return GestureDetector(
             onTap: controller.openPremium,

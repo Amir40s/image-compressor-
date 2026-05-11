@@ -8,7 +8,7 @@ import 'package:image_compressor/widgets/app_button_widget.dart';
 import 'package:image_compressor/widgets/custom_appbar.dart';
 import 'package:sizer/sizer.dart';
 import '../../widgets/app_text.dart';
-import '../onboarding_screen/controller.dart';
+
 
 class CompressorView extends GetView<ImageMainC> {
   const CompressorView({super.key});
@@ -44,8 +44,7 @@ class CompressorView extends GetView<ImageMainC> {
                         padding: const EdgeInsets.only(bottom: 16),
                         child: Obx(
                           () {
-                            final onboardingC = Get.put(OnBoardingC());
-                            final isPremium = onboardingC.userModel.value?.premium ?? false;
+                            final isPremium = controller.userModel.value?.premium ?? false;
                             return _compressionTile(
                               index: index,
                               selected: controller.selectedCompression.value == index,

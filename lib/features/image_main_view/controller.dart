@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_compressor/core/routes_config/routess.dart';
-import 'package:image_compressor/features/onboarding_screen/controller.dart';
 import 'package:image_compressor/utils/app_assets.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,6 +15,7 @@ import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share_plus/share_plus.dart';
+import '../../core/userModel/userModel.dart';
 import '../../core/services/permission_serives.dart';
 
 class ImageMainC extends GetxController {
@@ -34,11 +35,13 @@ class ImageMainC extends GetxController {
   RxBool isBeforeSelected = true.obs;
   RxBool isLoading = false.obs;
   RxList<Map<String, String>> recentImages = <Map<String, String>>[].obs;
+  Rx<UserModel?> userModel = Rx<UserModel?>(null);
 
   @override
   void onInit() {
     super.onInit();
     loadRecentImages();
+    initializeUser();
   }
 
   Future<void> loadRecentImages() async {
@@ -255,11 +258,10 @@ class ImageMainC extends GetxController {
     try {
       isLoading.value = true;
 
-      final onboardingC = Get.put(OnBoardingC());
-      if (onboardingC.userModel.value == null) {
-        await onboardingC.initializeUser();
+      if (userModel.value == null) {
+        await initializeUser();
       }
-      final user = onboardingC.userModel.value;
+      final user = userModel.value;
 
       if (user == null) {
         Get.snackbar("Error", "User data not loaded");
@@ -285,7 +287,7 @@ class ImageMainC extends GetxController {
         trialsLeft: user.trialsLeft - 1,
       );
 
-      onboardingC.userModel.value = updatedUser;
+      userModel.value = updatedUser;
 
       await compressImage(file: selectedImage!);
 
@@ -406,5 +408,65 @@ class ImageMainC extends GetxController {
     isBeforeSelected.value = false;
   }
 
+  Future<void> initializeUser() async {
+    final prefs = await SharedPreferences.getInstance();
 
+    final alreadyCreated = prefs.getBool("isUserCreated") ?? false;
+
+    if (!alreadyCreated) {
+      await createUser();
+      await prefs.setBool("isUserCreated", true);
+    } else {
+      await loadUser();
+    }
+  }
+
+  Future<void> createUser() async {
+    final deviceId = await getDeviceId();
+
+    UserModel user = UserModel(
+      deviceId: deviceId,
+      premium: false,
+      plan: "free",
+      trialsLeft: 3,
+    );
+
+    await firestore.collection("users").doc(deviceId).set({
+      ...user.toMap(),
+      "createdAt": FieldValue.serverTimestamp(),
+      "updatedAt": FieldValue.serverTimestamp(),
+    });
+
+    userModel.value = user;
+  }
+
+  Future<void> loadUser() async {
+    final deviceId = await getDeviceId();
+
+    final doc = await firestore.collection("users").doc(deviceId).get();
+
+    if (doc.exists) {
+      userModel.value = UserModel.fromMap(doc.data()!);
+    }
+  }
+
+  Future<String> getDeviceId() async {
+    final deviceInfo = DeviceInfoPlugin();
+
+    try {
+      if (Platform.isAndroid) {
+        final androidInfo = await deviceInfo.androidInfo;
+
+        return androidInfo.id;
+      } else if (Platform.isIOS) {
+        final iosInfo = await deviceInfo.iosInfo;
+
+        return iosInfo.identifierForVendor ?? "unknown_ios";
+      }
+
+      return "unknown_device";
+    } catch (e) {
+      return "error_device";
+    }
+  }
 }

@@ -3,7 +3,11 @@
 <plist version="1.0">
 <dict>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>This app needs access to your gallery to select images.</string>
+    <string>Image Compressor needs access to your photo library so you can select photos to compress, reduce file size, and save optimized images back to your device.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+    <string>Image Compressor needs permission to save compressed images back to your photo library.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Image Compressor needs camera access to capture photos for compression.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
